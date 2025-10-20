@@ -25,6 +25,7 @@ Inicia el servidor:
 node server.js
 
 El servidor estará corriendo en http://localhost:3000.
+<img width="559" height="144" alt="image" src="https://github.com/user-attachments/assets/4a122463-d09a-4641-bcec-86fdb41c4cc7" />
 
 ⚙️ Endpoints de la API
 El servidor expone dos endpoints bajo el prefijo /mcp:
