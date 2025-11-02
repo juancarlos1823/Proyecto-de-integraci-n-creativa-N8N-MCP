@@ -1,51 +1,98 @@
-🛠️ Servidor MCP (Mínimo Producto con Capacidades) de Herramientas
-Este proyecto implementa un servidor simple con Node.js y Express que actúa como un Mínimo Producto con Capacidades (MCP). Expone dos endpoints principales para el descubrimiento y la ejecución de "herramientas" o funciones que pueden ser consumidas por otro servicio o modelo, como un Large Language Model (LLM).
+# Marketing CRM Automation con IA
 
-El ejemplo actual incluye una herramienta para la clasificación de leads.
+Sistema completo de automatización de marketing que combina IA (via AI SDK de Vercel) con workflows de n8n para procesar leads automáticamente.
 
-🚀 Instalación y Ejecución
-Sigue estos pasos para poner en marcha el servidor localmente:
+## Características
 
-Prerrequisitos
-Node.js (versión recomendada LTS)
+- **Clasificación inteligente de leads**: La IA analiza el perfil y determina si es hot, warm o cold
+- **Integración con CRM**: Crea contactos automáticamente via webhooks de n8n
+- **Emails personalizados**: Envía mensajes de bienvenida según la campaña asignada
+- **Seguimiento automático**: Agenda tareas de seguimiento en el CRM
 
-1. Inicialización del Proyecto
-Si aún no lo tienes, crea un archivo package.json:
-npm init -y
+## Arquitectura
 
-2. Instalación de Dependencias
-Este proyecto solo requiere express y body-parser:
-npm install express body-parser
+\`\`\`
+Usuario → Chat IA → Herramientas MCP → Webhooks n8n → CRM/Email
+\`\`\`
 
-3. Guardar el Código
-Guarda el código proporcionado en un archivo llamado, por ejemplo, server.js.
+### Herramientas MCP disponibles:
 
-4. Ejecución del Servidor
-Inicia el servidor:
-node server.js
+1. **clasificar_lead**: Analiza y clasifica el lead
+2. **crear_contacto_crm**: Crea el contacto en el CRM
+3. **enviar_email_bienvenida**: Envía email personalizado
+4. **agendar_seguimiento**: Crea tarea de seguimiento
 
-El servidor estará corriendo en http://localhost:3000.
-<img width="559" height="144" alt="image" src="https://github.com/user-attachments/assets/4a122463-d09a-4641-bcec-86fdb41c4cc7" />
+## Configuración
 
-⚙️ Endpoints de la API
-El servidor expone dos endpoints bajo el prefijo /mcp:
+### 1. Variables de entorno
 
-1. Descubrimiento de Herramientas
-Utiliza este endpoint para obtener la lista de herramientas disponibles y sus parámetros (similar al patrón de "descubrimiento de funciones" o tool calling):
+Copia `.env.example` a `.env.local` y configura:
 
-Método,Ruta,Descripción
-GET,/mcp/tools,Lista todas las herramientas disponibles.
+\`\`\`bash
+N8N_WEBHOOK_CREAR_CONTACTO=https://tu-n8n.com/webhook/crear-contacto
+N8N_WEBHOOK_ENVIAR_EMAIL=https://tu-n8n.com/webhook/enviar-email
+N8N_WEBHOOK_AGENDAR_SEGUIMIENTO=https://tu-n8n.com/webhook/agendar-seguimiento
+N8N_API_KEY=tu-clave-secreta
+\`\`\`
 
-Lógica de Clasificación de clasificar_lead:
+### 2. Configurar n8n
 
-Categoría: Basada en palabras clave en el mensaje:
+Necesitas crear 3 workflows en n8n (ver documentación completa en `/docs/n8n-setup.md`):
 
-"software" -> "Tecnología"
+#### Workflow 1: Crear Contacto
+- Webhook trigger en `/webhook/crear-contacto`
+- Nodo para tu CRM (HubSpot, Pipedrive, Airtable, etc.)
+- Respond to Webhook con `contacto_id`
 
-"consultoría" -> "Consultoría"
+#### Workflow 2: Enviar Email
+- Webhook trigger en `/webhook/enviar-email`
+- Nodo Switch para seleccionar template según campaña
+- Nodo Send Email (Gmail, SendGrid, etc.)
+- Respond to Webhook con `mensaje_id`
 
-"marketing" -> "Marketing"
+#### Workflow 3: Agendar Seguimiento
+- Webhook trigger en `/webhook/agendar-seguimiento`
+- Nodo para crear tarea en CRM
+- Respond to Webhook con `tarea_id`
 
-Cualquier otra cosa -> "Otro"
+### 3. Instalar y ejecutar
 
-Prioridad: Si el mensaje incluye la palabra "urgente" se establece como "Alta", de lo contrario es "Normal".
+\`\`\`bash
+npm install
+npm run dev
+\`\`\`
+
+Abre [http://localhost:3000](http://localhost:3000)
+
+## Uso
+
+Simplemente chatea con el asistente:
+
+\`\`\`
+"Tengo un nuevo contacto: María García de InnovateTech, 
+interesada en automatización de marketing, presupuesto alto, 
+email: maria@innovatetech.com"
+\`\`\`
+
+El sistema automáticamente:
+1. Clasificará el lead (probablemente "hot")
+2. Creará el contacto en tu CRM
+3. Enviará email de bienvenida personalizado
+4. Agendará seguimiento apropiado
+
+## Próximos pasos
+
+- [ ] Agregar dashboard para ver leads procesados
+- [ ] Integrar con más CRMs nativamente
+- [ ] Agregar análisis de sentimiento en la clasificación
+- [ ] Implementar A/B testing de emails
+- [ ] Agregar notificaciones en tiempo real
+
+## Tecnologías
+
+- **Next.js 15** con App Router
+- **Vercel AI SDK** para tool calling
+- **n8n** para automatización de workflows
+- **TypeScript** para type safety
+- **Tailwind CSS** para estilos
+- **shadcn/ui** para componentes
