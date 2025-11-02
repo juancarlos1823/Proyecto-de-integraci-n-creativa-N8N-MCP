@@ -68,6 +68,9 @@ Abre [http://localhost:3000](http://localhost:3000)
 
 Simplemente chatea con el asistente:
 
+<img width="1301" height="788" alt="image" src="https://github.com/user-attachments/assets/9909bd1e-4df7-4c42-972d-a920bec4de69" />
+<img width="1268" height="145" alt="image" src="https://github.com/user-attachments/assets/8a34e8d5-797d-45d9-a967-6cadfb8d073a" />
+
 \`\`\`
 "Tengo un nuevo contacto: María García de InnovateTech, 
 interesada en automatización de marketing, presupuesto alto, 
