@@ -67,9 +67,12 @@ Abre [http://localhost:3000](http://localhost:3000)
 ## Uso
 
 Simplemente chatea con el asistente:
+<img width="545" height="107" alt="image" src="https://github.com/user-attachments/assets/0257ac5f-7b3e-4a3e-8df4-a9d7d2cc5a04" />
+<img width="671" height="252" alt="image" src="https://github.com/user-attachments/assets/e1f0f970-582a-42ea-81c8-48728be7be2b" />
 
 <img width="1301" height="788" alt="image" src="https://github.com/user-attachments/assets/9909bd1e-4df7-4c42-972d-a920bec4de69" />
 <img width="1268" height="145" alt="image" src="https://github.com/user-attachments/assets/8a34e8d5-797d-45d9-a967-6cadfb8d073a" />
+
 
 \`\`\`
 "Tengo un nuevo contacto: María García de InnovateTech, 
